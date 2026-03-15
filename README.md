@@ -1,8 +1,8 @@
 # CSC113-project-P1
-'''mermaid
+```mermaid
 classDiagram
 class Person{
 name
 phoneNumber
 }
-'''
+```
