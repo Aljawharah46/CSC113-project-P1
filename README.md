@@ -2,11 +2,11 @@
 ```mermaid
 classDiagram
 class Person{
-#String name
-#String phoneNumber
-+String getName()
-+String getPhone()
-+void displayDetails()
+# name : String
+# phoneNumber : String
++ getName() : String
++ getPhone() : String
++ displayDetails() : void
 }
 
 class Client{
