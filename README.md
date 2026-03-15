@@ -16,5 +16,25 @@ class Client{
 + displayDetails() void
 }
 
+class Guest{
+- invitationID : String
++ displayDetails() void
+}
+
+class Staff{
+# salary : double
++ performDuty() void
+}
+
+class Organizer{
+- experienceYears : int
++ performDuty() void
++ displayDetails() void
+}
+
 Person <|-- Client
+Person <|-- Guest
+Person <|-- Staff
+Staff <|-- Organizer
+
 ```
