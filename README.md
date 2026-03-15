@@ -10,9 +10,10 @@ class Person{
 }
 
 class Client{
-party
-createParty()
-getParty()
+- party : Party
++ createParty(name : String , date : String , location : String) void
++ getParty() Party
++ displayDetails() void
 }
 
 Person <|-- Client
