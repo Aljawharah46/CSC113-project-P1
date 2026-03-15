@@ -55,7 +55,7 @@ Person <|-- Guest
 Person <|-- Staff
 Staff <|-- Organizer
 
-Client o-- Party
+Party o-- Client
 Party o-- Guest
 
 ```
