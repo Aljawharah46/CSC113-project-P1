@@ -5,4 +5,12 @@ class Person{
 name
 phoneNumber
 }
+
+class Client{
+party
+createParty()
+getParty()
+}
+
+Person <|-- Client
 ```
