@@ -4,9 +4,9 @@ classDiagram
 class Person{
 # name : String
 # phoneNumber : String
-+ getName() : String
-+ getPhone() : String
-+ displayDetails() : void
++ getName() String
++ getPhone() String
++ displayDetails() void
 }
 
 class Client{
