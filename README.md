@@ -32,9 +32,30 @@ class Organizer{
 + displayDetails() void
 }
 
+class Party{
+- partyName : String
+- date : String
+- location : String
+- services : Service[]
+- guests : Guest[]
+- serviceCount : int
+- guestCount : int
++ addService(s : Service) boolean
++ removeService(name : String) boolean
++ searchService(name : String) Service
++ addGuest(g : Guest) boolean
++ removeGuest(name : String) boolean
++ calculateTotalCost() double
++ countGuestsRecursive(index : int) int
++ displayPartyDetails() void
+}
+
 Person <|-- Client
 Person <|-- Guest
 Person <|-- Staff
 Staff <|-- Organizer
+
+Client o-- Party
+Party o-- Guest
 
 ```
