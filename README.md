@@ -66,20 +66,20 @@ class VenueService {
 
 class CateringService {
 -numOfGuests : int
-+calculateCost() : double
++calculateCost() double
 }
 
 class EntertainmentService {
 -hours : int
-+calculateCost() : double
++calculateCost()  double
 }
 
 class Payable {
 <<interface>>
 -id : long
--classAttribute : long
-+operation(value : int) : int
-+abstractOperation() : void
+-classAttribute  long
++operation(value : int) int
++abstractOperation()  void
 }
 
 Person <|-- Client
