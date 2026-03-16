@@ -61,17 +61,17 @@ class Service {
 
 class VenueService {
 -capacity : int
-+calculateCost : double
++calculateCost() : double
 }
 
 class CateringService {
 -numOfGuests : int
-+calculateCost : double
++calculateCost() : double
 }
 
 class EntertainmentService {
 -hours : int
-+calculateCost : double
++calculateCost() : double
 }
 
 class Payable {
