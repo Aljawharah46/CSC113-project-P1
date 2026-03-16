@@ -50,6 +50,37 @@ class Party{
 + displayPartyDetails() void
 }
 
+
+class Service {
+#serviceName : String
+#basePrice : double
++getServiceName() : String
++calculateCost() :double
++displayService() : void
+}
+
+class VenueService {
+-capacity : int
++calculateCost : double
+}
+
+class CateringService {
+-numOfGuests : int
++calculateCost : double
+}
+
+class EntertainmentService {
+-hours : int
++calculateCost : double
+}
+
+interface Payable {
+-id : long
+-classAttribute : long
++operation(value : int) : int
++abstractOperation() : void
+}
+
 Person <|-- Client
 Person <|-- Guest
 Person <|-- Staff
@@ -57,5 +88,14 @@ Staff <|-- Organizer
 
 Party o-- Client
 Party o-- Guest
+Party o-- Service
+
+Service <|-- VenueService
+Service <|-- CateringService
+Service <|-- EntertainmentService
+
+Payable <|.. Service
+
+
 
 ```
