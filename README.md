@@ -54,14 +54,14 @@ class Party{
 class Service {
 #serviceName : String
 #basePrice : double
-+getServiceName() : String
-+calculateCost() :double
-+displayService() : void
++getServiceName()  String
++calculateCost()  double
++displayService()  void
 }
 
 class VenueService {
 -capacity : int
-+calculateCost() : double
++calculateCost()  double
 }
 
 class CateringService {
