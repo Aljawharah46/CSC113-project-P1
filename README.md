@@ -74,7 +74,8 @@ class EntertainmentService {
 +calculateCost : double
 }
 
-interface Payable {
+class Payable {
+<<interface>>
 -id : long
 -classAttribute : long
 +operation(value : int) : int
