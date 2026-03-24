@@ -1,4 +1,3 @@
-package Party;
 
 //Atributes
 private String partyName;
