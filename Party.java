@@ -11,7 +11,7 @@ private int guestCount;
 //Constructors
 public class Party {
 
-	public Party(String partyName, String date, String location, int serviceCount, int guestCount, int serviceNum,
+	public Party(String partyName, String date, String location, int serviceNum,
 			int guestNum) {
 		this.partyName = partyName;
 		this.date = date;
@@ -26,26 +26,27 @@ public class Party {
 
 	// Methods
 
-	public boolean addService(Service s) {
+	public void addService(Service s) {
 		if (serviceCount==services.length) 
-			return false;
+			System.out.println("Service can't be added! You exceded the number of services you chose.");
 
 		else {
 			services[serviceCount++] = s;
-			return true;
+			System.out.println("Service added successfully!");
 		}
 
 		}
 
-	public boolean removeService(String name) {
+	public void removeService(String name) {
 		int index = searchServiceIndex(name);
 		if (index != -1) {
 			services[index] = services[serviceCount-1];
 			services[serviceCount--] = null;
-			return true;
-		} else
-			return false;
-
+			System.out.println("Service removed successfully!");
+		} 
+		else
+			System.out.println("Can't find a service with the name given!");
+    
 	}
 
 	public int searchServiceIndex(String name) {
@@ -54,39 +55,47 @@ public class Party {
 
 				return i;
 			}
-				
-
 		}
 		return -1;
 	}
 	
-	public boolean addGuest(Guest g) {
+	public void addGuest(Guest g) {
 		if (guestCount==guests.length) 
-			return false;
+			System.out.println("Guest can't be added! You exceded the number of guests you chose.");
 
 		else {
 			guests[guestCount++] = g;
-			return true;
+			System.out.println("Guest added successfully!");
 		}
 		
 		
 	}
-	
-	public boolean removeGuest(String name) {	
-		public boolean removeGuest(String name) {    
-		    for (int i = 0; i < guestCount; i++) {
-		        if (guests[i].getName().equalsIgnoreCase(name)) {
+
+		
+		public void removeGuest(String name) {    
+			int index = searchGuestIndex (name);
+		    if (index!= -1) {
 		            guests[i] = guests[guestCount - 1];
 		            guests[guestCount - 1] = null;
 		            guestCount--;
-		            return true;
+		            System.out.println("Guest removed successfully!");
 		        }
-		    }
-		    return false;
+		    else 
+		    System.out.println("Can't find a guest with the name given!");
 		}
 		
 	}
-	
+
+
+		public int searchGuestIndex(String name) {
+		for (int i = 0; i < guestCount; i++) {
+			if (services[i].getGuestName().equalsIgnoreCase(name)) {
+
+				return i;
+			}
+		}
+		return -1;
+	}
 	
 	public double calculateTotalCost() {
 	    double total = 0;
@@ -97,6 +106,8 @@ public class Party {
 
 	    return total;
 	}
+
+
 	
 	public int countGuestsRecursive(int index) {
 	    if (index >= guestCount) {
