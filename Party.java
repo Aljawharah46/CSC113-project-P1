@@ -1,3 +1,4 @@
+public class Party {
 
 //Atributes
 private String partyName;
@@ -9,7 +10,6 @@ private int serviceCount;
 private int guestCount;
 
 //Constructors
-public class Party {
 
 	public Party(String partyName, String date, String location, int serviceNum,
 			int guestNum) {
@@ -75,7 +75,7 @@ public class Party {
 		public void removeGuest(String name) {    
 			int index = searchGuestIndex (name);
 		    if (index!= -1) {
-		            guests[i] = guests[guestCount - 1];
+		            guests[index] = guests[guestCount - 1];
 		            guests[guestCount - 1] = null;
 		            guestCount--;
 		            System.out.println("Guest removed successfully!");
@@ -84,12 +84,12 @@ public class Party {
 		    System.out.println("Can't find a guest with the name given!");
 		}
 		
-	}
+	
 
 
 		public int searchGuestIndex(String name) {
 		for (int i = 0; i < guestCount; i++) {
-			if (services[i].getGuestName().equalsIgnoreCase(name)) {
+			if (guests[i].getName().equalsIgnoreCase(name)) {
 
 				return i;
 			}
