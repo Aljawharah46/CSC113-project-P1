@@ -110,7 +110,7 @@ private int guestCount;
 
 	
 	public int countGuestsRecursive(int index) {
-	    if (index >= guestCount) {
+	    if (index >= guests.length) {
 	        return 0;
 	    }
 
