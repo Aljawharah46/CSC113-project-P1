@@ -66,10 +66,7 @@ class EntertainmentService {
 
 class Payable {
 <<interface>>
--id : long
--classAttribute  long
-+operation(value : int) int
-+abstractOperation()  void
++calculateCost() double
 }
 
 Person <|-- Client
