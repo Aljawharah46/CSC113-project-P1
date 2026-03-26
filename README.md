@@ -75,9 +75,9 @@ Person <|-- Client
 Person <|-- Guest
 
 
-Client o-- Party
-Party o-- Guest
-Party o-- Service
+Client "1" o-- "1"Party
+Party "1"o--"*" Guest
+Party "1"o--"*" Service
 
 Service <|-- VenueService
 Service <|-- CateringService
