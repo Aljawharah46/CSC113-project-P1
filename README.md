@@ -30,11 +30,12 @@ class Party{
 - guests : Guest[]
 - serviceCount : int
 - guestCount : int
-+ addService(s : Service) boolean
-+ removeService(name : String) boolean
-+ searchService(name : String) Service
-+ addGuest(g : Guest) boolean
-+ removeGuest(name : String) boolean
++ addService(s : Service) void
++ removeService(name : String) void
++ searchService(name : String) int
++ searchGuest(name : String) int
++ addGuest(g : Guest) void
++ removeGuest(name : String) void
 + calculateTotalCost() double
 + countGuestsRecursive(index : int) int
 + displayPartyDetails() void
