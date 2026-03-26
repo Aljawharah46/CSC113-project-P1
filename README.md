@@ -42,6 +42,7 @@ class Party{
 
 
 class Service {
+<<abstract>>
 #serviceName : String
 #basePrice : double
 +getServiceName()  String
