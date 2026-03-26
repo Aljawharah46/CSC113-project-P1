@@ -1,6 +1,25 @@
 # CSC113-project-P1
 ```mermaid
 classDiagram
+class Party{
+- partyName : String
+- date : String
+- location : String
+- services : Service[]
+- guests : Guest[]
+- serviceCount : int
+- guestCount : int
++ addService(s : Service) void
++ removeService(name : String) void
++ searchService(name : String) int
++ searchGuest(name : String) int
++ addGuest(g : Guest) void
++ removeGuest(name : String) void
++ calculateTotalCost() double
++ countGuestsRecursive(index : int) int
++ displayPartyDetails() void
+}
+
 class Person{
 # name : String
 # phoneNumber : String
@@ -21,25 +40,6 @@ class Guest{
 + displayDetails() void
 }
 
-
-class Party{
-- partyName : String
-- date : String
-- location : String
-- services : Service[]
-- guests : Guest[]
-- serviceCount : int
-- guestCount : int
-+ addService(s : Service) void
-+ removeService(name : String) void
-+ searchService(name : String) int
-+ searchGuest(name : String) int
-+ addGuest(g : Guest) void
-+ removeGuest(name : String) void
-+ calculateTotalCost() double
-+ countGuestsRecursive(index : int) int
-+ displayPartyDetails() void
-}
 
 
 class Service {
