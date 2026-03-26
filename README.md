@@ -21,16 +21,6 @@ class Guest{
 + displayDetails() void
 }
 
-class Staff{
-# salary : double
-+ performDuty() void
-}
-
-class Organizer{
-- experienceYears : int
-+ performDuty() void
-+ displayDetails() void
-}
 
 class Party{
 - partyName : String
@@ -84,8 +74,7 @@ class Payable {
 
 Person <|-- Client
 Person <|-- Guest
-Person <|-- Staff
-Staff <|-- Organizer
+
 
 Party o-- Client
 Party o-- Guest
