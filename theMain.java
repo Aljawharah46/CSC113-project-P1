@@ -139,8 +139,8 @@ System.out.println ("Enter the service name: ");
 String serviceName = read.nextLine();
 System.out.println ("Enter the service base price: ");
 double basePrice = read.nextDouble();
-System.out.println ("Enter the number of guests: ");
-int cateringNumGuests = read.nextInt();
+
+int cateringNumGuests = clientParty.countGuestsRecursive(0);
 read.nextLine();//garbage
 
 CateringService newCatService = new  CateringService (serviceName, basePrice, cateringNumGuests);
