@@ -1,3 +1,4 @@
+
 public class CateringService extends Service {
     private int numberOfGuests;
 
@@ -9,4 +10,5 @@ public class CateringService extends Service {
     public double calculateCost() {
         return basePrice + (numberOfGuests * 25);
     }
+    
 }
