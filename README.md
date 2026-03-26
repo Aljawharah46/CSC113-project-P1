@@ -75,7 +75,7 @@ Person <|-- Client
 Person <|-- Guest
 
 
-Party o-- Client
+Client o-- Party
 Party o-- Guest
 Party o-- Service
 
