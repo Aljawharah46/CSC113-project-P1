@@ -12,7 +12,7 @@ class Party{
 + addService(s : Service) void
 + removeService(name : String) void
 + searchService(name : String) int
-+ searchGuest(name : String) int
++ searchGuestIndex(name : String) int
 + addGuest(g : Guest) void
 + removeGuest(name : String) void
 + calculateTotalCost() double
