@@ -33,6 +33,7 @@ class Client{
 + createParty(name : String , date : String , location : String) void
 + getParty() Party
 + displayDetails() void
++ calculateCost()  double
 }
 
 class Guest{
@@ -83,6 +84,7 @@ Service <|-- VenueService
 Service <|-- CateringService
 Service <|-- EntertainmentService
 
+Payable <|.. client 
 Payable <|.. Service
 
 
