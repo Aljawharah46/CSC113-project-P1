@@ -11,7 +11,7 @@ class Party{
 - guestCount : int
 + addService(s : Service) void
 + removeService(name : String) void
-+ searchService(name : String) int
++ searchServiceIndex(name : String) int
 + searchGuestIndex(name : String) int
 + addGuest(g : Guest) void
 + removeGuest(name : String) void
