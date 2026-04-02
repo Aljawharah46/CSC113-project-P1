@@ -84,7 +84,7 @@ Service <|-- VenueService
 Service <|-- CateringService
 Service <|-- EntertainmentService
 
-Payable <|.. client 
+Payable <|.. Client
 Payable <|.. Service
 
 
