@@ -171,8 +171,10 @@ System.out.println ("Error! Create a party first!");
 
 case 4->{
 if (partyCreated){
-double totalCost = clientParty.calculateTotalCost();
-System.out.println ("The total cost of the party is " + totalCost + ".");
+Payable p = client;  // treat client as Payable
+double totalCost = p.calculateCost();
+
+System.out.println("The total cost of the party is " + totalCost + ".");
 }
 else
 System.out.println ("Error! Create a party first!");
