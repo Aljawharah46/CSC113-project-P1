@@ -3,20 +3,20 @@ public class Person{
 protected String name;
 protected String phoneNumber;
 
-public Person(String name , String phoneNumber){
+public Person(String name , String phoneNumber){ //constructor
 this.name=name;
 this.phoneNumber=phoneNumber;
 }
 
-public String getName(){
+public String getName(){ //returns the name of the person
 return name;
 }
 
-public String getPhoneNumber(){
+public String getPhoneNumber(){ //returns the phone number of the person
 return phoneNumber;
 }
 
-public void displayDetails(){
+public void displayDetails(){ //displays the person's information
 System.out.println("Name: "+name);
 System.out.println("Phone Number: "+phoneNumber);
 }
