@@ -1,3 +1,4 @@
+import java.lang.Character;
 import java.util.*;
 class theMain {
 public static void main (String[]args){
@@ -11,8 +12,24 @@ System.out.println("Enter your name: ");
 String clientName=read.nextLine();
 
 System.out.println("Enter your phone number");
-String phoneNum=read.nextLine();
-
+String phoneNum="";
+boolean validPhoneNum = true;
+while (validPhoneNum) {
+try { 
+phoneNum=read.nextLine();
+if (phoneNum.length() != 10) 
+throw new InvalidPhoneNumberException ("Phone number must be 10 digits. ");
+for (int i=0 ; i<phoneNum.length() ; i++ ){
+if (!Character.isDigit(phoneNum.charAt(i))){
+throw new InvalidPhoneNumberException ("Your phone number must be 10 and only didgits.");
+}
+}
+validPhoneNum=false;
+}
+catch (InvalidPhoneNumberException e) {
+System.out.println(e.getMessage());
+}
+}
 Client client=new Client(clientName,phoneNum);
 
 
@@ -26,9 +43,17 @@ System.out.println ("5.Print summary");
 System.out.println ("6.Exit");
 System.out.println ("----------------");
 System.out.println ("Enter the choice you want.");
-
+ 
+try {
 choice= read.nextInt();
 read.nextLine();//garbage
+}
+catch (InputMismatchException e){
+read.nextLine();
+choice=0;
+}
+
+
 
 //boolean partyCreated =false; //whenever the menu is repeated it will return to false
 switch (choice){
@@ -40,7 +65,7 @@ String date = read.nextLine ();
 System.out.println ("Enter the party location: ");
 String location = read.nextLine ();
 System.out.println ("Enter number of guests: ");
-int guestsNum = read.nextInt ();
+int guestsNum = read.nextInt();
 System.out.println ("Enter number of services: ");
 int servicesNum = read.nextInt ();
 
