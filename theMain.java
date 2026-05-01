@@ -1,47 +1,78 @@
 import java.lang.Character;
 import java.util.*;
+import java.io.*;
 class theMain {
-public static void main (String[]args){
+public static void main (String[]args) throws ClassNotFoundException {
+File SystemFile = new File("System.dat");
 Scanner read = new Scanner (System.in);
+
+
 int choice;
 Party clientParty=null;
 boolean partyCreated =false;
 
-System.out.println("Hello! enter your information to create a party");
+System.out.println("Hello!");
+
 System.out.println("Enter your name: ");
 String clientName=read.nextLine();
 
+System.out.println("Enter your password:");
+String password = read.nextLine();
+
+
+Client client= fetchClient(clientName, password, SystemFile );
+// In the case of new user
+if (client == null){ 
+// Take the new user phone number
 System.out.println("Enter your phone number");
+//Validate the phone number first
 String phoneNum="";
 boolean validPhoneNum = true;
 while (validPhoneNum) {
+
 try { 
 phoneNum=read.nextLine();
 if (phoneNum.length() != 10) 
 throw new InvalidPhoneNumberException ("Phone number must be 10 digits. ");
 for (int i=0 ; i<phoneNum.length() ; i++ ){
 if (!Character.isDigit(phoneNum.charAt(i))){
-throw new InvalidPhoneNumberException ("Your phone number must be 10 and only didgits.");
-}
+throw new InvalidPhoneNumberException ("Your phone number must be 10 and only didgits.");}
 }
 validPhoneNum=false;
 }
+
 catch (InvalidPhoneNumberException e) {
 System.out.println(e.getMessage());
 }
 }
-Client client=new Client(clientName,phoneNum);
+//Craete a new Client and save it to the file
+client= new Client(clientName,phoneNum,password);
+saveClient(client, SystemFile);
+System.out.println("\n=========================================");
+System.out.println("        Hello " + client.getName() + " 👋");
+System.out.println("   Your account has been created!");
+System.out.println("   Let's start planning your party 🎈");
+System.out.println("=========================================\n");
+}
+
+//In the case of user found in the file
+else{
+System.out.println("\n=========================================");
+System.out.println("         Welcome Back, " + client.getName() + "!");
+System.out.println("         We missed you <3");
+System.out.println("=========================================\n");
+}
 
 
 do {
-System.out.println ("-------Menu------");
+System.out.println ("============== MAIN MENU ==============");
 System.out.println ("1.Create party");
 System.out.println ("2.Manage Guests");
 System.out.println ("3.Manage services");
 System.out.println ("4.Total cost");
 System.out.println ("5.Print summary");
 System.out.println ("6.Exit");
-System.out.println ("----------------");
+System.out.println ("======================================");
 System.out.println ("Enter the choice you want.");
  
 try {
@@ -226,5 +257,67 @@ default ->{System.out.println ("Invaild choice! please choose again. ");
 while (choice !=6);
 }
 
+public static void saveClient(Client newClient, File f) {//A methid that saves new Client to System File
 
+    try {
+        // 1. Read all existing clients in the file if exist and store it temporarily
+        Client[] temp = new Client[100];
+        int count = 0;
+
+        if (f.exists()) {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(f));
+
+            try {
+                while (true) {
+                    temp[count++] = (Client) in.readObject();
+                }
+            } catch (EOFException e) {
+                // done reading
+            }
+
+            in.close();
+        }
+
+        // 2. Add new client to them
+        temp[count++] = newClient;
+
+        // 3. Rewrite the whole file again after adding by iterating
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f));
+
+        for (int i = 0; i < count; i++) {
+            out.writeObject(temp[i]);
+        }
+
+        out.close();
+
+    } catch (Exception e) {
+        System.out.println("Error saving.");
+    }
+}
+
+//fetchClient method search the file for a client object with the entered name and password, returns the object if there and null otherwise
+public static Client fetchClient (String n, String p, File f) throws ClassNotFoundException{
+ 
+    try { 
+    ObjectInputStream in = new ObjectInputStream(new FileInputStream(f)) ;
+    Client client;
+    while (true){
+client = (Client) in.readObject();
+
+if (client!= null && client.getName().equalsIgnoreCase(n)&&client.getPassword().equals(p)&&client.getName() != null &&client.getPassword() != null){
+in.close();
+return client;
+}
+}
+} 
+catch (EOFException e) {
+  //just to catch
+}
+catch (IOException e) {
+    e.printStackTrace();
+}
+return null;
+
+
+}
 }

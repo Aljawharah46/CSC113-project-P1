@@ -1,4 +1,6 @@
-public class Person{
+import java.io.Serializable;
+//The super class must be Serializable
+public class Person implements Serializable{
 
 protected String name;
 protected String phoneNumber;

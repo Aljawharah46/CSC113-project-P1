@@ -1,4 +1,7 @@
-public abstract class Service implements Payable {
+//All related classes to client must implement Serialiazable
+import java.io.Serializable;
+
+public abstract class Service implements Payable, Serializable{
     protected String serviceName;
     protected double basePrice;
 

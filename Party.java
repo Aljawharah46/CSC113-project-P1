@@ -1,4 +1,7 @@
-public class Party {
+//All related classes to client must implement Serialiazable
+import java.io.Serializable;
+
+public class Party implements Serializable{
 
 //Atributes
 private String partyName;
