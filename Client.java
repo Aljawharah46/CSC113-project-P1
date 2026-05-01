@@ -1,5 +1,5 @@
 public class Client extends Person implements Payable {
-
+private String password;
 private Party party=null;
 
 public Client(String n , String phoneNum){
