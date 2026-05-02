@@ -11,5 +11,9 @@ public void displayDetails(){ //displays the guest's information
 super.displayDetails();
 System.out.println("Invitation ID: "+invitationID);
 }
+  public String getGuestDetails() { 
+return getDetails() + "Invitation ID : " + invitationID + "\n";
+}
+
 
 }//end of class
