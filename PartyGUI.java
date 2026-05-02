@@ -5,99 +5,96 @@ import java.text.SimpleDateFormat;
 
 public class PartyGUI extends JFrame implements ActionListener {
 
-    private JTextField clientNameField;
-    private JTextField phoneField;
+    private Client client;   //logged in client
+    private Party clientParty;     //current party object
+    private boolean partyCreated = false;   //check if party was created 
+    //text fields for party info
     private JTextField partyNameField;
     private JTextField guestNumField;
     private JTextField serviceNumField;
+    
+        private JSpinner dateSpinner; //spinner for choosing date
 
-    private JSpinner dateSpinner;
-    private JComboBox locationBox;
-
+    private JComboBox <String> locationBox;  //drop down list for locations(used before)
+    //buttons for actions 
     private JButton createPartyButton;
+    private JButton addGuestButton;
     private JButton addServiceButton;
     private JButton showSummaryButton;
     private JButton totalCostButton;
-
-    private Client client;
-    private Party clientParty;
-    private boolean partyCreated = false;
-
+    //second frame to show result (class resultFrame)
     private ResultFrame resultFrame;
 
-    public PartyGUI() {
-        setTitle("Party Management System");
-        setSize(500, 450);
-        setLocation(150, 150);
+    public PartyGUI(Client client) {     //constructor
+
+        this.client = client;
+
+        setTitle("Welcome " + client.getName());
+        setSize(500, 430);
+        setLocation(200, 120);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         resultFrame = new ResultFrame();
 
         Container contentPane = getContentPane();
         contentPane.setLayout(new FlowLayout());
-        contentPane.setBackground(new Color(245, 230, 250));
+        contentPane.setBackground(new Color(245,230,250));
 
-        JLabel titleLabel = new JLabel("Party Management System");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
-        titleLabel.setForeground(new Color(100, 40, 120));
-        contentPane.add(titleLabel);
+        JLabel title = new JLabel("Party Management System");
+        title.setFont(new Font("Arial", Font.BOLD, 22));
+        title.setForeground(new Color(120,50,150));
+        contentPane.add(title);
 
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(7, 2, 8, 8));
-        inputPanel.setBackground(new Color(250, 240, 255));
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5,2,8,8));
+        panel.setBackground(new Color(250,240,255));
 
-        inputPanel.add(new JLabel("Client Name:"));
-        clientNameField = new JTextField(20);
-        inputPanel.add(clientNameField);
+        panel.add(new JLabel("Party Name:"));
+        partyNameField = new JTextField();
+        panel.add(partyNameField);
 
-        inputPanel.add(new JLabel("Phone Number:"));
-        phoneField = new JTextField(20);
-        inputPanel.add(phoneField);
-
-        inputPanel.add(new JLabel("Party Name:"));
-        partyNameField = new JTextField(20);
-        inputPanel.add(partyNameField);
-
-        inputPanel.add(new JLabel("Date:"));
+        panel.add(new JLabel("Date:"));
         dateSpinner = new JSpinner(new SpinnerDateModel());
-        JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy");
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner,"dd/MM/yyyy");
         dateSpinner.setEditor(editor);
-        inputPanel.add(dateSpinner);
+        panel.add(dateSpinner);
 
-        inputPanel.add(new JLabel("Location:"));
-        locationBox = new JComboBox();
+        panel.add(new JLabel("Location:"));
+        locationBox = new JComboBox <String>();
+        locationBox.addItem("Select Location");
         locationBox.addItem("Riyadh");
         locationBox.addItem("Jeddah");
         locationBox.addItem("Dammam");
-        locationBox.addItem("Lebanon");
-        locationBox.addItem("Other");
-        inputPanel.add(locationBox);
+        locationBox.addItem("Abha");
+        locationBox.addItem("Alula");
+        locationBox.addItem("Zahle");
+        locationBox.addItem("Beruit");
+        locationBox.addItem("Tripoli");
 
-        inputPanel.add(new JLabel("Number of Guests:"));
-        guestNumField = new JTextField(20);
-        inputPanel.add(guestNumField);
+        panel.add(locationBox);
 
-        inputPanel.add(new JLabel("Number of Services:"));
-        serviceNumField = new JTextField(20);
-        inputPanel.add(serviceNumField);
+        panel.add(new JLabel("Number of Guests:"));
+        guestNumField = new JTextField();
+        panel.add(guestNumField);
 
-        contentPane.add(inputPanel);
+        panel.add(new JLabel("Number of Services:"));
+        serviceNumField = new JTextField();
+        panel.add(serviceNumField);
+
+        contentPane.add(panel);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2, 2, 8, 8));
-        buttonPanel.setBackground(new Color(245, 230, 250));
+        buttonPanel.setLayout(new GridLayout(3,2,8,8));
+        buttonPanel.setBackground(new Color(245,230,250));
 
         createPartyButton = new JButton("Create Party");
+        addGuestButton = new JButton("Add Guest");
         addServiceButton = new JButton("Add Service");
         showSummaryButton = new JButton("Show Summary");
         totalCostButton = new JButton("Total Cost");
 
-        createPartyButton.setBackground(new Color(220, 190, 240));
-        addServiceButton.setBackground(new Color(220, 190, 240));
-        showSummaryButton.setBackground(new Color(220, 190, 240));
-        totalCostButton.setBackground(new Color(220, 190, 240));
-
         buttonPanel.add(createPartyButton);
+        buttonPanel.add(addGuestButton);
         buttonPanel.add(addServiceButton);
         buttonPanel.add(showSummaryButton);
         buttonPanel.add(totalCostButton);
@@ -105,132 +102,164 @@ public class PartyGUI extends JFrame implements ActionListener {
         contentPane.add(buttonPanel);
 
         createPartyButton.addActionListener(this);
+        addGuestButton.addActionListener(this);
         addServiceButton.addActionListener(this);
         showSummaryButton.addActionListener(this);
         totalCostButton.addActionListener(this);
     }
 
-    public void actionPerformed(ActionEvent event) {
+    public void actionPerformed(ActionEvent e) {  //handles clicks 
 
-        if (event.getSource() == createPartyButton) {
+        if(e.getSource()==createPartyButton)
             createParty();
-        }
 
-        else if (event.getSource() == addServiceButton) {
+        else if(e.getSource()==addGuestButton)
+            addGuest();
+
+        else if(e.getSource()==addServiceButton)
             addService();
-        }
 
-        else if (event.getSource() == showSummaryButton) {
+        else if(e.getSource()==showSummaryButton)
             showSummary();
-        }
 
-        else if (event.getSource() == totalCostButton) {
+        else if(e.getSource()==totalCostButton)
             showTotalCost();
-        }
     }
 
-    private void createParty() {
-        try {
-            String clientName = clientNameField.getText();
-            String phone = phoneField.getText();
-            String partyName = partyNameField.getText();
+    private void createParty() {   //creates party
 
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            String date = format.format(dateSpinner.getValue());
+        try{
+            String name = partyNameField.getText();
 
-            String location = locationBox.getSelectedItem().toString();
+            SimpleDateFormat f =
+            new SimpleDateFormat("dd/MM/yyyy");
 
-            int guestNum = Integer.parseInt(guestNumField.getText());
-            int serviceNum = Integer.parseInt(serviceNumField.getText());
+            String date = f.format(dateSpinner.getValue());
 
-            client = new Client(clientName, phone);
-            client.createParty(partyName, date, location, serviceNum, guestNum);
+            String location =
+            locationBox.getSelectedItem().toString();
+
+            int guests =
+            Integer.parseInt(guestNumField.getText());
+
+            int services =
+            Integer.parseInt(serviceNumField.getText());
+
+            client.createParty(name,date,location,services,guests);
 
             clientParty = client.getParty();
+
             partyCreated = true;
 
-            JOptionPane.showMessageDialog(this, "Party created successfully!");
-        }
+            JOptionPane.showMessageDialog(this,
+            "Party created successfully!");
 
-        catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Guest number and service number must be numbers.");
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this,
+            "Enter valid data.");
         }
     }
 
-    private void addService() {
-        if (!partyCreated) {
-            JOptionPane.showMessageDialog(this, "Create a party first!");
+    private void addGuest(){   //add guests to current party
+
+        if(!partyCreated){
+            JOptionPane.showMessageDialog(this,
+            "Create party first!");
             return;
         }
 
-        try {
-            String type = JOptionPane.showInputDialog(this,
-                    "Enter service type:\n1. Entertainment\n2. Venue\n3. Catering");
+        String name =
+        JOptionPane.showInputDialog("Guest Name:");
 
-            int serviceType = Integer.parseInt(type);
+        String phone =
+        JOptionPane.showInputDialog("Guest Phone:");
 
-            String serviceName = JOptionPane.showInputDialog(this, "Enter service name:");
-            String priceText = JOptionPane.showInputDialog(this, "Enter base price:");
-            double basePrice = Double.parseDouble(priceText);
+        String id =
+        JOptionPane.showInputDialog("Invitation ID:");
 
-            if (serviceType == 1) {
-                String hoursText = JOptionPane.showInputDialog(this, "Enter number of hours:");
-                int hours = Integer.parseInt(hoursText);
+        Guest g = new Guest(name,phone,id);
 
-                EntertainmentService s = new EntertainmentService(serviceName, basePrice, hours);
-                clientParty.addService(s);
+        clientParty.addGuest(g);
+    }
 
-                JOptionPane.showMessageDialog(this, "Entertainment service added successfully!");
-            }
+    private void addService(){  //add services 
 
-            else if (serviceType == 2) {
-                String capacityText = JOptionPane.showInputDialog(this, "Enter capacity:");
-                int capacity = Integer.parseInt(capacityText);
-
-                VenueService s = new VenueService(serviceName, basePrice, capacity);
-                clientParty.addService(s);
-
-                JOptionPane.showMessageDialog(this, "Venue service added successfully!");
-            }
-
-            else if (serviceType == 3) {
-                int numberOfGuests = clientParty.countGuestsRecursive(0);
-
-                CateringService s = new CateringService(serviceName, basePrice, numberOfGuests);
-                clientParty.addService(s);
-
-                JOptionPane.showMessageDialog(this, "Catering service added successfully!");
-            }
-
-            else {
-                JOptionPane.showMessageDialog(this, "Invalid service type.");
-            }
+        if(!partyCreated){
+            JOptionPane.showMessageDialog(this,
+            "Create party first!");
+            return;
         }
 
-        catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter valid numbers.");
+        try{
+
+            String type =
+            JOptionPane.showInputDialog(
+            "1. Entertainment\n2. Venue\n3. Catering");
+
+            int choice = Integer.parseInt(type);
+
+            String name =
+            JOptionPane.showInputDialog("Service Name:");
+
+            double price =
+            Double.parseDouble(
+            JOptionPane.showInputDialog("Base Price:"));
+
+            if(choice==1){
+
+                int hours =
+                Integer.parseInt(
+                JOptionPane.showInputDialog("Hours:"));
+
+                clientParty.addService(
+                new EntertainmentService(name,price,hours));
+            }
+
+            else if(choice==2){
+
+                int cap =
+                Integer.parseInt(
+                JOptionPane.showInputDialog("Capacity:"));
+
+                clientParty.addService(
+                new VenueService(name,price,cap));
+            }
+
+            else{
+
+                int num =
+                clientParty.countGuestsRecursive(0);
+
+                clientParty.addService(
+                new CateringService(name,price,num));
+            }
+
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this,
+            "Wrong input.");
         }
     }
 
-    private void showSummary() {
-        if (partyCreated) {
-            resultFrame.showResult(clientParty.getPartyDetails());
-        } else {
-            JOptionPane.showMessageDialog(this, "Create a party first!");
-        }
+    private void showSummary(){   // display party details in result frame 
+
+        if(partyCreated)
+            resultFrame.showResult(
+            clientParty.getPartyDetails());
+
+        else
+            JOptionPane.showMessageDialog(this,
+            "Create party first!");
     }
 
-    private void showTotalCost() {
-        if (partyCreated) {
-            double total = client.calculateCost();
-            resultFrame.showResult("The total cost of the party is " + total);
-        } else {
-            JOptionPane.showMessageDialog(this, "Create a party first!");
-        }
-    }
+    private void showTotalCost(){  // display total cost 
 
-    public static void main(String[] args) {
-        PartyGUI frame = new PartyGUI();
-        frame.setVisible(true);
+        if(partyCreated)
+            resultFrame.showResult(
+            "Total Cost = "
+            + client.calculateCost());
+
+        else
+            JOptionPane.showMessageDialog(this,
+            "Create party first!");
     }
 }
