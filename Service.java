@@ -21,4 +21,10 @@ public abstract class Service implements Payable, Serializable{
         System.out.println("Base Price: " + basePrice);
         System.out.println("Total Cost: " + calculateCost());
     }
+     public String getServiceDetails() {
+    return "Service Name: " + serviceName + "\n" +
+           "Base Price: " + basePrice + "\n" +
+           "Total Cost: " + calculateCost() + "\n";
+}
+
 }
