@@ -145,5 +145,26 @@ from the given index*/
 	        guests[i].displayDetails();
 	    }
 	}
+	 public String getPartyDetails() {
+    String details = "";
+
+    details += "Party Name: " + partyName + "\n";
+    details += "Date: " + date + "\n";
+    details += "Location: " + location + "\n";
+
+    details += "\nServices:\n";
+    for (int i = 0; i < serviceCount; i++) {
+        details += services[i].getServiceDetails() + "\n";
+    }
+
+    details += "\nGuests:\n";
+    for (int i = 0; i < guestCount; i++) {
+        details += guests[i].getGuestDetails() + "\n";
+    }
+
+    return details;
+}
+
+
 
 }
