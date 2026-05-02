@@ -22,6 +22,9 @@ public void displayDetails(){ //displays the person's information
 System.out.println("Name: "+name);
 System.out.println("Phone Number: "+phoneNumber);
 }
+public String getDetails() {
+  return "Name: " + name + "\n";
+  }
 
 
 }
