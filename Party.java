@@ -23,24 +23,30 @@ private List  guests;
 	}
 
 	// Methods
-public void addService(Service s){
+public boolean addService(Service s){
+if(s!=null){
 services.insertAtBack(s);
-System.out.println("Service is added successfully");
+return true;
+}
+return false;
 }
 
 
-public void removeService(String name){
+public boolean removeService(String name){
 Node current=services.getHead();
 
 if(current!=null){
 Service s=(Service)current.getData();
+
 if(s.getServiceName().equalsIgnoreCase(name)){//if the wanted service is the first one in list
 services.removeFromFront();
-System.out.println("Service removed successfully");
+return true;
 }
 }//end if
 
 Node previous=current;
+
+if(current!=null)
 current=current.getNext();
 
 while(current!=null){
@@ -48,42 +54,46 @@ Service s=(Service)current.getData();
 
 if(s.getServiceName().equalsIgnoreCase(name)){
 previous.setNext(current.getNext());
-System.out.println("Service removed successfully");
+return true;
 }
 previous=current;
 current=current.getNext();
 
 }//end while
 
-System.out.println("couldn't find a service with the given name");
+return false;
 
 }//end removeService
 
 
-public void addGuest(Guest g){
+public boolean addGuest(Guest g){
+if(g!=null){
 guests.insertAtBack(g);
-System.out.println("Guest is added successfully");
+return true;
+}
+return false;
 }	
 	
-public void removeGuest(String name){
+public boolean removeGuest(String name){
 Node current=guests.getHead();
 
 if(current!=null){
 Guest g=(Guest)current.getData();
 if(g.getName().equalsIgnoreCase(name)){//if the wanted guest is the first one in list
 guests.removeFromFront();
-System.out.println("Guest is removed successfully");
+return true;
 }
 
 }
 Node previous=current;
+if(current!=null)
 current=current.getNext();
 
 while(current!=null){
 Guest g=(Guest)current.getData();
 if(g.getName().equalsIgnoreCase(name)){
 previous.setNext(current.getNext());
-System.out.println("Guest is removed successfully");
+return true;
 
 }//end if
 previous=current;
@@ -92,7 +102,7 @@ current=current.getNext();
 
 }//end while
 
-System.out.println("couldn't find a guest with the given name");
+return false;
 
 
 }//end removeGuest
