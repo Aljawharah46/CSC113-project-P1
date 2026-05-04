@@ -7,142 +7,153 @@ public class Party implements Serializable{
 private String partyName;
 private String date;
 private String location;
-private Service[]services;
-private Guest[]guests;
-private int serviceCount;
-private int guestCount;
+private List services;
+private List  guests;
+
 
 //Constructors
 
-	public Party(String partyName, String date, String location, int serviceNum,
-			int guestNum) {
+	public Party(String partyName, String date, String location) {
 		this.partyName = partyName;
 		this.date = date;
 		this.location = location;
 
-		services = new Service[serviceNum];
-		guests = new Guest[guestNum];
-
-		this.serviceCount = 0;
-		this.guestCount = 0;
+		services=new List("Services list");
+      guests=new List("Guests list");
 	}
 
 	// Methods
-public boolean addService(Service s) {/*adds services to the party’s services array if there is space available, 
-and return true success if added or false otherwise*/
-
-
-    if (serviceCount == services.length)
-        return false;
-
-    services[serviceCount++] = s;
-    return true;
+public void addService(Service s){
+services.insertAtBack(s);
+System.out.println("Service is added successfully");
 }
-public boolean removeService(String name) {/*removes the service with the given name from the services array and 
-return true if added or false otherwise*/
 
 
-    int index = searchServiceIndex(name);
+public void removeService(String name){
+Node current=services.getHead();
 
-    if (index != -1) {
-        services[index] = services[serviceCount - 1];
-        services[serviceCount - 1] = null;
-        serviceCount--;
-        return true;
-    }
-
-    return false;
+if(current!=null){
+Service s=(Service)current.getData();
+if(s.getServiceName().equalsIgnoreCase(name)){//if the wanted service is the first one in list
+services.removeFromFront();
+System.out.println("Service removed successfully");
 }
-	public int searchServiceIndex(String name) { /*searches for a service with the given name and returns the index of it 
-if found or -1 otherwise*/
-		for (int i = 0; i < serviceCount; i++) {
-			if (services[i].getServiceName().equalsIgnoreCase(name)) {
+}//end if
 
-				return i;
-			}
-		}
-		return -1;
-	}
-	
-public boolean addGuest(Guest g) {/*adds guest G to the party’s guest array if there is space available, and 
-return true if added or false otherwise*/
+Node previous=current;
+current=current.getNext();
 
+while(current!=null){
+Service s=(Service)current.getData();
 
-    if (guestCount == guests.length)
-        return false;
-
-    guests[guestCount++] = g;
-    return true;
+if(s.getServiceName().equalsIgnoreCase(name)){
+previous.setNext(current.getNext());
+System.out.println("Service removed successfully");
 }
-		
-	public boolean removeGuest(String name) {/*removes the guest with the given name from the guests array and 
-return true if added or false otherwise*/  
+previous=current;
+current=current.getNext();
+
+}//end while
+
+System.out.println("couldn't find a service with the given name");
+
+}//end removeService
 
 
-    int index = searchGuestIndex(name);
-
-    if (index != -1) {
-        guests[index] = guests[guestCount - 1];
-        guests[guestCount - 1] = null;
-        guestCount--;
-        return true;
-    }
-
-    return false;
-}		
+public void addGuest(Guest g){
+guests.insertAtBack(g);
+System.out.println("Guest is added successfully");
+}	
 	
+public void removeGuest(String name){
+Node current=guests.getHead();
+
+if(current!=null){
+Guest g=(Guest)current.getData();
+if(g.getName().equalsIgnoreCase(name)){//if the wanted guest is the first one in list
+guests.removeFromFront();
+System.out.println("Guest is removed successfully");
+}
+
+}
+Node previous=current;
+current=current.getNext();
+
+while(current!=null){
+Guest g=(Guest)current.getData();
+if(g.getName().equalsIgnoreCase(name)){
+previous.setNext(current.getNext());
+System.out.println("Guest is removed successfully");
+
+}//end if
+previous=current;
+current=current.getNext();
 
 
-		public int searchGuestIndex(String name) { /*searches for a guest with the given name and returns the index of it if 
-found or -1 otherwise*/
-		for (int i = 0; i < guestCount; i++) {
-			if (guests[i].getName().equalsIgnoreCase(name)) {
+}//end while
 
-				return i;
-			}
-		}
-		return -1;
-	}
+System.out.println("couldn't find a guest with the given name");
+
+
+}//end removeGuest
+
+			
+   public double calculateTotalCost(){
+   double total=0;
+   Node current=services.getHead();
+   
+   while(current!=null){
+   Service s=(Service)current.getData();
+   total=total+s.calculateCost();
+   current=current.getNext();
+   
+   }//end while
+   
+   return total;
+   
+   }//end calcTotalCost
+
+	   
+   public int countGuestsRecursive(Node node){//count guests statring from the given node
+   if(node==null)
+   return 0;
+   
+   return 1 + countGuestsRecursive(node.getNext());
+   
+   }//end countGuestRecursive
+   
+   public int countGuests(){
+return countGuestsRecursive(guests.getHead());
+}
 	
-	public double calculateTotalCost() { /*calculates and returns the total cost of all services in the party using 
-polymorphism*/
-	    double total = 0;
-
-	    for (int i = 0; i < serviceCount; i++) {
-	        total += services[i].calculateCost(); // polymorphism
-	    }
-
-	    return total;
-	}
-
-
 	
-	public int countGuestsRecursive(int index) { /*recursively counts and returns the total number of guests starting 
-from the given index*/
-	    if (index >= guests.length) {
-	        return 0;
-	    }
-
-	    return 1 + countGuestsRecursive(index + 1);
-	}
-	
-	public void displayPartyDetails() { //displays the party's information
+   
+   public void displayPartyDetails() { //displays the party's information
 
 	    System.out.println("Party Name: " + partyName);
 	    System.out.println("Date: " + date);
 	    System.out.println("Location: " + location);
 
 	    System.out.println("\nServices:");
-	    for (int i = 0; i < serviceCount; i++) {
-	        services[i].displayService();
-	    }
-
-	    System.out.println("\nGuests:");
-	    for (int i = 0; i < guestCount; i++) {
-	        guests[i].displayDetails();
-	    }
-	}
-	 public String getPartyDetails() {
+       Node currentService=services.getHead();
+       while(currentService!=null){
+       Service s=(Service)currentService.getData() ;
+       s.displayService();
+       currentService=currentService.getNext(); 
+       }//end while
+       
+       System.out.println("\nGuests:");
+       Node currentGuest=guests.getHead();
+       while(currentGuest!=null){
+       Guest g=(Guest)currentGuest.getData() ;
+       g.displayDetails();
+       currentGuest=currentGuest.getNext(); 
+       }//end while
+        
+       
+       }
+   
+	 /*public String getPartyDetails() {
     String details = "";
 
     details += "Party Name: " + partyName + "\n";
@@ -150,17 +161,26 @@ from the given index*/
     details += "Location: " + location + "\n";
 
     details += "\nServices:\n";
-    for (int i = 0; i < serviceCount; i++) {
-        details += services[i].getServiceDetails() + "\n";
-    }
+    Node currentService=services.getHead();
+       while(currentService!=null){
+       Service s=(Service)currentService.getData() ;
+       s.getServiceDetails();
+       currentService=currentService.getNext(); 
+       }//end while
+    
 
     details += "\nGuests:\n";
-    for (int i = 0; i < guestCount; i++) {
-        details += guests[i].getGuestDetails() + "\n";
-    }
-
+    Node currentGuest=guests.getHead();
+       while(currentGuest!=null){
+       Guest g=(Guest)currentGuest.getData() ;
+       g.getGuestDetails();
+       currentGuest=currentGuest.getNext(); 
+       }//end while
+    
     return details;
 }
+
+*/
 
 
 
