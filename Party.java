@@ -28,33 +28,31 @@ private int guestCount;
 	}
 
 	// Methods
+public boolean addService(Service s) {/*adds services to the party’s services array if there is space available, 
+and return true success if added or false otherwise*/
 
-	public void addService(Service s) {/*adds services to the party’s services array if there is space available, 
-and prints a message of success if added or message of fail otherwise*/
-		if (serviceCount==services.length) 
-			System.out.println("Service can't be added! You exceded the number of services you chose.");
 
-		else {
-			services[serviceCount++] = s;
-			System.out.println("Service added successfully!");
-		}
+    if (serviceCount == services.length)
+        return false;
 
-		}
+    services[serviceCount++] = s;
+    return true;
+}
+public boolean removeService(String name) {/*removes the service with the given name from the services array and 
+return true if added or false otherwise*/
 
-	public void removeService(String name) { /*removes the service with the given name from the services array and 
-prints a message of success if added or message of fail otherwise*/
-		int index = searchServiceIndex(name);
-		if (index != -1) {
-			services[index] = services[serviceCount-1];
-			services[serviceCount-1] = null;
-         serviceCount--;
-			System.out.println("Service removed successfully!");
-		} 
-		else
-			System.out.println("Can't find a service with the name given!");
-    
-	}
 
+    int index = searchServiceIndex(name);
+
+    if (index != -1) {
+        services[index] = services[serviceCount - 1];
+        services[serviceCount - 1] = null;
+        serviceCount--;
+        return true;
+    }
+
+    return false;
+}
 	public int searchServiceIndex(String name) { /*searches for a service with the given name and returns the index of it 
 if found or -1 otherwise*/
 		for (int i = 0; i < serviceCount; i++) {
@@ -66,33 +64,32 @@ if found or -1 otherwise*/
 		return -1;
 	}
 	
-	public void addGuest(Guest g) { /*adds guest G to the party’s guest array if there is space available, and 
-prints a message of success if added or message of fail otherwise*/
-		if (guestCount==guests.length) 
-			System.out.println("Guest can't be added! You exceded the number of guests you chose.");
+public boolean addGuest(Guest g) {/*adds guest G to the party’s guest array if there is space available, and 
+return true if added or false otherwise*/
 
-		else {
-			guests[guestCount++] = g;
-			System.out.println("Guest added successfully!");
-		}
-		
-		
-	}
 
+    if (guestCount == guests.length)
+        return false;
+
+    guests[guestCount++] = g;
+    return true;
+}
 		
-		public void removeGuest(String name) { /*removes the guest with the given name from the guests array and 
-prints a message of success if added or message of fail otherwise*/  
-			int index = searchGuestIndex (name);
-		    if (index!= -1) {
-		            guests[index] = guests[guestCount - 1];
-		            guests[guestCount - 1] = null;
-		            guestCount--;
-		            System.out.println("Guest removed successfully!");
-		        }
-		    else 
-		    System.out.println("Can't find a guest with the name given!");
-		}
-		
+	public boolean removeGuest(String name) {/*removes the guest with the given name from the guests array and 
+return true if added or false otherwise*/  
+
+
+    int index = searchGuestIndex(name);
+
+    if (index != -1) {
+        guests[index] = guests[guestCount - 1];
+        guests[guestCount - 1] = null;
+        guestCount--;
+        return true;
+    }
+
+    return false;
+}		
 	
 
 

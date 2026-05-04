@@ -49,9 +49,9 @@ System.out.println(e.getMessage());
 client= new Client(clientName,phoneNum,password);
 saveClient(client, SystemFile);
 System.out.println("\n=========================================");
-System.out.println("        Hello " + client.getName() + " 👋");
+System.out.println("        Hello " + client.getName() );
 System.out.println("   Your account has been created!");
-System.out.println("   Let's start planning your party 🎈");
+System.out.println("   Let's start planning your party ");
 System.out.println("=========================================\n");
 }
 
@@ -125,13 +125,19 @@ String guestPhoneNum = read.nextLine();
 System.out.println ("Enter the guest invitation ID: ");
 String guestID = read.nextLine();
 Guest newGuest = new Guest (guestName,guestPhoneNum,guestID);
-clientParty.addGuest(newGuest); 
+if(clientParty.addGuest(newGuest))
+    System.out.println("Guest added successfully!");
+else
+    System.out.println("Guest can't be added! Maximum guest limit reached.");
 }
 
 else if (guestChoice==2){
 System.out.println ("Enter the guest name you want to remove");
 String GuestToRemove = read.nextLine();
-clientParty.removeGuest(GuestToRemove);
+if(clientParty.removeGuest(GuestToRemove))
+    System.out.println("Guest removed successfully!");
+else
+    System.out.println("Can't find a guest with the name given!");
 }
 
 else
@@ -175,7 +181,10 @@ int hours = read.nextInt();
 read.nextLine();//garbage
 
 EntertainmentService newEntService = new  EntertainmentService (serviceName, basePrice, hours);
-clientParty.addService(newEntService);
+if(clientParty.addService(newEntService))
+    System.out.println("Service added successfully!");
+else
+    System.out.println("Service can't be added! Maximum service limit reached.");
 } 
 case 2 -> {
 System.out.println ("Enter the service name: ");
@@ -187,7 +196,10 @@ int capacity = read.nextInt();
 read.nextLine();
 
 VenueService newVenService = new  VenueService (serviceName, basePrice, capacity);
-clientParty.addService(newVenService);//newVanService fixed
+if(clientParty.addService(newVenService))
+    System.out.println("Service added successfully!");
+else
+    System.out.println("Service can't be added! Maximum service limit reached.");//newVanService fixed
 
 }
 case 3 -> {
@@ -200,7 +212,10 @@ int cateringNumGuests = clientParty.countGuestsRecursive(0);
 read.nextLine();//garbage
 
 CateringService newCatService = new  CateringService (serviceName, basePrice, cateringNumGuests);
-clientParty.addService(newCatService);}
+if(clientParty.addService(newCatService))
+    System.out.println("Service added successfully!");
+else
+    System.out.println("Service can't be added! Maximum service limit reached.");}
 
 default ->System.out.println ("Invalid choice!");
 }
@@ -210,7 +225,10 @@ default ->System.out.println ("Invalid choice!");
 else if (serviceChoice==2){
 System.out.println ("Enter the service name you want to remove: ");
 String ServiceToRemove = read.nextLine();
-clientParty.removeService(ServiceToRemove);
+if(clientParty.removeService(ServiceToRemove))
+    System.out.println("Service removed successfully!");
+else
+    System.out.println("Can't find a service with the name given!");
 
 }
 
@@ -314,10 +332,15 @@ catch (EOFException e) {
   //just to catch
 }
 catch (IOException e) {
-    e.printStackTrace();
+  //just to catch
+
 }
 return null;
 
 
+}
+
+public static void saveUpdatedClient(Client updatedClient, File f) {
+    saveClient(updatedClient, f);
 }
 }
