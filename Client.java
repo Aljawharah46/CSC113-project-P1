@@ -10,8 +10,8 @@ super(n , phoneNum);
 password=p;
 }
 
-public void createParty(String name , String date , String location, int serviceNum, int guestNum)  {
-party = new Party(name, date, location, serviceNum, guestNum); 
+public void createParty(String name , String date , String location)  {
+party = new Party(name, date, location); 
 
 }
 
