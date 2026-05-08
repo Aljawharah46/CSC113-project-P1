@@ -95,12 +95,9 @@ System.out.println ("Enter the date (dd/mm/yy): ");
 String date = read.nextLine ();
 System.out.println ("Enter the party location: ");
 String location = read.nextLine ();
-System.out.println ("Enter number of guests: ");
-int guestsNum = read.nextInt();
-System.out.println ("Enter number of services: ");
-int servicesNum = read.nextInt ();
 
-client.createParty(name , date , location , servicesNum , guestsNum);
+
+client.createParty(name , date , location);
 clientParty=client.getParty();
 
 System.out.println ("Party is created successfully!");
@@ -208,7 +205,7 @@ String serviceName = read.nextLine();
 System.out.println ("Enter the service base price: ");
 double basePrice = read.nextDouble();
 
-int cateringNumGuests = clientParty.countGuestsRecursive(0);
+int cateringNumGuests = clientParty.countGuests();
 read.nextLine();//garbage
 
 CateringService newCatService = new  CateringService (serviceName, basePrice, cateringNumGuests);
