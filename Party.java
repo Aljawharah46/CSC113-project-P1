@@ -163,7 +163,7 @@ return countGuestsRecursive(guests.getHead());
        
        }
    
-	 /*public String getPartyDetails() {
+	 public String getPartyDetails() {
     String details = "";
 
     details += "Party Name: " + partyName + "\n";
@@ -190,7 +190,7 @@ return countGuestsRecursive(guests.getHead());
     return details;
 }
 
-*/
+
 
 
 
