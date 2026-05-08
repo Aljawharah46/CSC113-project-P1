@@ -1,4 +1,4 @@
-class InvalidPhoneNumberException extends Exception {
+class InvalidPhoneNumberException extends RuntimeException {
   public InvalidPhoneNumberException (String message) {
      super (message);
      }
