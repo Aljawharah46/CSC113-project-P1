@@ -82,13 +82,13 @@ public class PartyGUI extends JFrame implements ActionListener {
 
     centerPanel.add(locationBox);
 
-    centerPanel.add(new JLabel("Number of Guests:"));
-    guestNumField = new JTextField();
-    centerPanel.add(guestNumField);
+    // centerPanel.add(new JLabel("Number of Guests:"));
+    // guestNumField = new JTextField();
+    // centerPanel.add(guestNumField);
 
-    centerPanel.add(new JLabel("Number of Services:"));
-    serviceNumField = new JTextField();
-    centerPanel.add(serviceNumField);
+    // centerPanel.add(new JLabel("Number of Services:"));
+    // serviceNumField = new JTextField();
+    // centerPanel.add(serviceNumField);
 
     contentPane.add(centerPanel, BorderLayout.CENTER);
 
@@ -164,11 +164,11 @@ public class PartyGUI extends JFrame implements ActionListener {
             String location =
             locationBox.getSelectedItem().toString();
 
-            int guests =
-            Integer.parseInt(guestNumField.getText());
+            // int guests =
+            // Integer.parseInt(guestNumField.getText());
 
-            int services =
-            Integer.parseInt(serviceNumField.getText());
+            // int services =
+            // Integer.parseInt(serviceNumField.getText());
 
             client.createParty(name,date,location);
 
@@ -334,12 +334,10 @@ public class PartyGUI extends JFrame implements ActionListener {
     private void showSummary(){
 
         if(partyCreated)
-            resultFrame.showResult(
-            clientParty.getPartyDetails());
+            resultFrame.showResult(clientParty.getPartyDetails());
 
         else
-            JOptionPane.showMessageDialog(this,
-            "Create party first!");
+            JOptionPane.showMessageDialog(this,"Create party first!");
     }
 
     private void showTotalCost(){

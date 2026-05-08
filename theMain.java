@@ -95,10 +95,6 @@ System.out.println ("Enter the date (dd/mm/yy): ");
 String date = read.nextLine ();
 System.out.println ("Enter the party location: ");
 String location = read.nextLine ();
-System.out.println ("Enter number of guests: ");
-int guestsNum = read.nextInt();
-System.out.println ("Enter number of services: ");
-int servicesNum = read.nextInt ();
 
 client.createParty(name , date , location);
 clientParty=client.getParty();
