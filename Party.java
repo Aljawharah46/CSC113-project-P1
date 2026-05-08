@@ -163,7 +163,7 @@ return countGuestsRecursive(guests.getHead());
        
        }
    
-	 public String getPartyDetails() {
+public String getPartyDetails() {
     String details = "";
 
     details += "Party Name: " + partyName + "\n";
@@ -171,22 +171,23 @@ return countGuestsRecursive(guests.getHead());
     details += "Location: " + location + "\n";
 
     details += "\nServices:\n";
-    Node currentService=services.getHead();
-       while(currentService!=null){
-       Service s=(Service)currentService.getData() ;
-       s.getServiceDetails();
-       currentService=currentService.getNext(); 
-       }//end while
-    
+    Node currentService = services.getHead();
+
+    while(currentService != null){
+        Service s = (Service) currentService.getData();
+        details += s.getServiceDetails() + "\n";
+        currentService = currentService.getNext();
+    }
 
     details += "\nGuests:\n";
-    Node currentGuest=guests.getHead();
-       while(currentGuest!=null){
-       Guest g=(Guest)currentGuest.getData() ;
-       g.getGuestDetails();
-       currentGuest=currentGuest.getNext(); 
-       }//end while
-    
+    Node currentGuest = guests.getHead();
+
+    while(currentGuest != null){
+        Guest g = (Guest) currentGuest.getData();
+        details += g.getGuestDetails() + "\n";
+        currentGuest = currentGuest.getNext();
+    }
+
     return details;
 }
 
