@@ -170,7 +170,7 @@ public class PartyGUI extends JFrame implements ActionListener {
             int services =
             Integer.parseInt(serviceNumField.getText());
 
-            client.createParty(name,date,location,services,guests);
+            client.createParty(name,date,location);
 
             clientParty = client.getParty();
 
@@ -293,7 +293,7 @@ public class PartyGUI extends JFrame implements ActionListener {
             else if(choice==3){
 
                 int num =
-                clientParty.countGuestsRecursive(0);
+                clientParty.countGuests();
 
                 added = clientParty.addService(
                 new CateringService(name,price,num));
